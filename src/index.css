@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Open Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Raleway", sans-serif;
+  
+  --color-brand-primary: #173b6c;
+  --color-brand-accent: #149ddd;
+  --color-brand-bg: #f5f8fd;
+  --color-sidebar-bg: #040b14;
+}
+
+@layer base {
+  body {
+    @apply font-sans bg-white text-[#272829];
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading text-brand-primary;
+  }
+}
+
+@layer components {
+  .section-title {
+    @apply pb-8;
+  }
+  
+  .section-title h2 {
+    @apply text-3xl font-bold mb-5 pb-5 relative;
+  }
+  
+  .section-title h2::after {
+    content: "";
+    @apply absolute block w-12 h-1 bg-brand-accent bottom-0 left-0;
+  }
+  
+  .section-bg {
+    @apply bg-brand-bg;
+  }
+}
