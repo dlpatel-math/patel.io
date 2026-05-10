@@ -17,6 +17,20 @@ export default function App() {
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
+    const sectionNames: Record<string, string> = {
+      home: 'Home',
+      about: 'About',
+      research: 'Research',
+      teaching: 'Teaching',
+      mentorship: 'Mentorship',
+      resume: 'Resume',
+      contact: 'Contact'
+    };
+    const currentName = sectionNames[activeSection] || 'Home';
+    document.title = `Dhiraj Patel - ${currentName}`;
+  }, [activeSection]);
+
+  useEffect(() => {
     const sections = ['home', 'about', 'research', 'teaching', 'mentorship', 'resume', 'contact'];
     
     const observer = new IntersectionObserver(
