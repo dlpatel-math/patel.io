@@ -65,7 +65,7 @@ export default function Resume() {
           </p>
         </div>
         <a 
-          href="/Dhiraj_Patel_CV.pdf"
+          href="Dhiraj_Patel_CV.pdf"
           download
           className="group flex items-center gap-3 bg-brand-primary text-white px-8 py-4 rounded-lg hover:bg-brand-accent transition-all shadow-md active:scale-95 whitespace-nowrap font-bold text-sm tracking-wide"
         >
