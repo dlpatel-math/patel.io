@@ -1,5 +1,4 @@
 import { motion } from 'motion/react';
-import { Download } from 'lucide-react';
 import { educationHistory, experienceHistory } from '../data/resumeData';
 import { profile } from '../data/profile';
 
@@ -57,22 +56,6 @@ export default function Resume() {
         </div>
       </div>
 
-      <div className="bg-white border-l-4 border-l-brand-primary border-t border-r border-b border-slate-200 p-8 rounded-r-xl flex flex-col md:flex-row items-center justify-between gap-8 shadow-sm hover:shadow-md transition-shadow">
-        <div className="flex-1">
-          <h3 className="text-lg font-bold text-brand-primary mb-2">Detailed Curriculum Vitae</h3>
-          <p className="text-sm text-slate-600 leading-relaxed">
-            If you require a comprehensive overview of my academic background, full list of publications, teaching portfolio, and service history, please download the PDF version of my CV.
-          </p>
-        </div>
-        <a 
-          href="Dhiraj_Patel_CV.pdf"
-          download
-          className="group flex items-center gap-3 bg-brand-primary text-white px-8 py-4 rounded-lg hover:bg-brand-accent transition-all shadow-md active:scale-95 whitespace-nowrap font-bold text-sm tracking-wide"
-        >
-          <Download size={18} className="group-hover:translate-y-0.5 transition-transform" />
-          DOWNLOAD FULL CV
-        </a>
-      </div>
     </section>
   );
 }
