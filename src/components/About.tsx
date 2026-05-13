@@ -36,7 +36,7 @@ export default function About() {
         >
           <img 
             src={profile.profileImage} 
-            className="w-full grayscale hover:grayscale-0 transition-all duration-500 rounded-lg shadow-lg aspect-square object-cover" 
+            className="w-full transition-all duration-500 rounded-lg shadow-lg aspect-square object-cover" 
             alt={profile.fullName} 
             referrerPolicy="no-referrer"
             onError={(e) => {
@@ -57,16 +57,15 @@ export default function About() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8 mb-8">
             <ul className="space-y-4">
-              <li className="flex items-center gap-2 text-sm"><ChevronRight className="text-brand-accent" size={16} /> <strong>Research Area:</strong> <span>Network Science & Sampling</span></li>
+              <li className="flex items-center gap-2 text-sm"><ChevronRight className="text-brand-accent" size={16} /> <strong>Research Area:</strong> <span>{profile.researchArea}</span></li>
               <li className="flex items-center gap-2 text-sm"><ChevronRight className="text-brand-accent" size={16} /> <strong>Current Position:</strong> <span>{profile.currentPosition.title}</span></li>
-              <li className="flex items-center gap-2 text-sm"><ChevronRight className="text-brand-accent" size={16} /> <strong>PhD:</strong> <span>IIT Delhi (2021)</span></li>
-              <li className="flex items-center gap-2 text-sm"><ChevronRight className="text-brand-accent" size={16} /> <strong>City:</strong> <span>{profile.location}</span></li>
+              <li className="flex items-center gap-2 text-sm"><ChevronRight className="text-brand-accent" size={16} /> <strong>Research Group:</strong> <a href={profile.currentPosition.url} target="_blank" rel="noopener noreferrer" className="hover:text-brand-accent">{profile.currentPosition.group}</a></li>
+              <li className="flex items-center gap-2 text-sm"><ChevronRight className="text-brand-accent" size={16} /> <strong>Institute:</strong> <span>{profile.currentPosition.institution}</span></li>
             </ul>
             <ul className="space-y-4">
-              <li className="flex items-center gap-2 text-sm"><ChevronRight className="text-brand-accent" size={16} /> <strong>Research Group:</strong> <a href={profile.currentPosition.url} target="_blank" rel="noopener noreferrer" className="hover:text-brand-accent">{profile.currentPosition.group}, RWTH</a></li>
-              <li className="flex items-center gap-2 text-sm"><ChevronRight className="text-brand-accent" size={16} /> <strong>Previous Inst:</strong> <span>IIT Delhi</span></li>
-              <li className="flex items-center gap-2 text-sm"><ChevronRight className="text-brand-accent" size={16} /> <strong>Email:</strong> <span>{profile.email}</span></li>
-              <li className="flex items-center gap-2 text-sm"><ChevronRight className="text-brand-accent" size={16} /> <strong>Availability:</strong> <span>Collaborations Welcome</span></li>
+              <li className="flex items-center gap-2 text-sm"><ChevronRight className="text-brand-accent" size={16} /> <strong>City:</strong> <span>{profile.location}</span></li>
+              <li className="flex items-center gap-2 text-sm"><ChevronRight className="text-brand-accent" size={16} /> <strong>PhD:</strong> <span>{profile.phd}</span></li>
+              <li className="flex items-center gap-2 text-sm"><ChevronRight className="text-brand-accent" size={16} /> <strong>Email:</strong> <a href={`mailto:${profile.email}`} className="hover:text-brand-accent">{profile.email}</a></li>
             </ul>
           </div>
           

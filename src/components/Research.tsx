@@ -1,6 +1,8 @@
 import { motion, AnimatePresence } from 'motion/react';
 import { useState, useMemo } from 'react';
 import { ExternalLink, FileText, Calendar, BookOpen, Network, ChevronDown, ChevronUp } from 'lucide-react';
+import 'katex/dist/katex.min.css';
+import { InlineMath } from 'react-katex';
 import { publications, type Publication } from '../data/research';
 import CollaborationNetwork from './CollaborationNetwork';
 
@@ -10,6 +12,24 @@ const categories = [
   { id: 'preprint', label: 'Preprints' },
   { id: 'conference', label: 'Conference Papers' },
 ];
+
+/**
+ * Renders text containing LaTeX math between $ delimiters
+ */
+function RenderTitle({ title }: { title: string }) {
+  const parts = title.split(/(\$.*?\$)/g);
+  return (
+    <>
+      {parts.map((part, i) => {
+        if (part.startsWith('$') && part.endsWith('$')) {
+          const math = part.slice(1, -1);
+          return <InlineMath key={i} math={math} />;
+        }
+        return <span key={i}>{part}</span>;
+      })}
+    </>
+  );
+}
 
 export default function Research() {
   const [activeFilter, setActiveFilter] = useState('all');
@@ -121,7 +141,7 @@ export default function Research() {
                   </div>
                   
                   <h3 className="text-lg font-bold text-brand-primary mb-1 group-hover:text-brand-accent transition-colors leading-snug">
-                    {pub.title}
+                    <RenderTitle title={pub.title} />
                   </h3>
                   
                   <p className="text-sm text-[#4b4949] mb-1">
@@ -139,25 +159,29 @@ export default function Research() {
                       {pub.journal}
                     </p>
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-4">
+                      {pub.pdfUrl && (
+                        <a 
+                          href={pub.pdfUrl} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-1.5 text-xs font-bold text-red-600 hover:underline decoration-red-600 transition-all"
+                        >
+                          <FileText size={14} />
+                          PDF
+                        </a>
+                      )}
                       {pub.link && (
                         <a 
                           href={pub.link} 
                           target="_blank" 
                           rel="noopener noreferrer"
-                          className="flex items-center gap-1 text-xs font-bold text-brand-accent hover:underline decoration-brand-accent transition-all"
+                          className="flex items-center gap-1.5 text-xs font-bold text-brand-accent hover:underline decoration-brand-accent transition-all"
                         >
-                          <FileText size={14} />
-                          View PDF
+                          <ExternalLink size={14} />
+                          Source
                         </a>
                       )}
-                      <a 
-                        href="#" 
-                        className="text-[#ccc] hover:text-brand-accent transition-all"
-                        title="Citation Metadata"
-                      >
-                        <ExternalLink size={14} />
-                      </a>
                     </div>
                   </div>
                 </div>

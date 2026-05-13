@@ -22,9 +22,9 @@ const finalNavItems = [
 ];
 
 const socialLinks = [
-  { icon: GraduationCap, href: profile.socials.scholar, label: "Google Scholar" },
-  { icon: Network, href: "https://www.researchgate.net/profile/Dhiraj-Patel", label: "Research Gate" },
-  { icon: Fingerprint, href: profile.socials.orcid, label: "ORCID" },
+  { logo: "https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Scholar_logo.svg", href: profile.socials.scholar, label: "Google Scholar" },
+  { logo: "https://upload.wikimedia.org/wikipedia/commons/5/5e/ResearchGate_icon_SVG.svg", href: profile.socials.researchgate, label: "ResearchGate" },
+  { logo: "https://upload.wikimedia.org/wikipedia/commons/0/06/ORCID_iD.svg", href: profile.socials.orcid, label: "ORCID" },
   { icon: Linkedin, href: profile.socials.linkedin, label: "LinkedIn" },
 ];
 
@@ -52,7 +52,7 @@ export default function Sidebar({
           <img 
             src={profile.sidebarImage} 
             alt={profile.fullName} 
-            className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+            className="w-full h-full object-cover transition-all duration-500"
             referrerPolicy="no-referrer"
             onError={(e) => {
               (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop";
@@ -65,7 +65,6 @@ export default function Sidebar({
         
         <div className="flex flex-wrap justify-center gap-2 mt-6">
           {socialLinks.map((social, i) => {
-            const Icon = social.icon;
             return (
               <a 
                 key={i} 
@@ -73,9 +72,13 @@ export default function Sidebar({
                 target="_blank"
                 rel="noopener noreferrer"
                 title={social.label}
-                className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-brand-accent hover:scale-110 transition-all duration-300"
+                className="w-9 h-9 rounded-full bg-white flex items-center justify-center text-gray-800 hover:bg-brand-accent hover:scale-110 transition-all duration-300 overflow-hidden p-1.5 shadow-sm"
               >
-                <Icon size={16} />
+                {social.logo ? (
+                  <img src={social.logo} alt={social.label} className="w-full h-full object-contain" referrerPolicy="no-referrer" />
+                ) : (
+                  <social.icon size={18} className="text-sidebar-bg" />
+                )}
               </a>
             );
           })}

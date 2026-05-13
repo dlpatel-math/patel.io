@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Calendar, GraduationCap, ExternalLink } from 'lucide-react';
+import { Calendar, GraduationCap, FileText, ExternalLink } from 'lucide-react';
 import { teachingHistory } from '../data/teaching';
 
 export default function Teaching() {
@@ -56,7 +56,7 @@ export default function Teaching() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-4 py-2 bg-brand-primary/5 text-brand-primary text-xs font-bold rounded-lg hover:bg-brand-primary hover:text-white transition-all shadow-sm border border-brand-primary/10"
                   >
-                    <ExternalLink size={14} />
+                    <FileText size={14} />
                     View Course Materials
                   </a>
                 )}

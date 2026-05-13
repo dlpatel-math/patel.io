@@ -25,24 +25,34 @@ export default function CollaborationNetwork() {
 
     publications.forEach(pub => {
       const authors = pub.authors.split(', ').map(a => a.trim());
+      
+      // Update node counts for all authors
       authors.forEach(author => {
-        if (author !== mainAuthor) {
-          nodesMap.set(author, (nodesMap.get(author) || 0) + 1);
-          linksMap.set(author, (linksMap.get(author) || 0) + 1);
-        }
+        nodesMap.set(author, (nodesMap.get(author) || 0) + 1);
       });
+
+      // Create links between all pairs of authors (clique)
+      for (let i = 0; i < authors.length; i++) {
+        for (let j = i + 1; j < authors.length; j++) {
+          const a1 = authors[i];
+          const a2 = authors[j];
+          // Ensure consistent key for the link map
+          const linkKey = [a1, a2].sort().join('---');
+          linksMap.set(linkKey, (linksMap.get(linkKey) || 0) + 1);
+        }
+      }
     });
 
-    const nodes: Node[] = [
-      { id: mainAuthor, count: publications.length, isMain: true },
-      ...Array.from(nodesMap.entries()).map(([id, count]) => ({ id, count }))
-    ];
-
-    const links: Link[] = Array.from(linksMap.entries()).map(([target, value]) => ({
-      source: mainAuthor,
-      target: target,
-      value: value
+    const nodes: Node[] = Array.from(nodesMap.entries()).map(([id, count]) => ({
+      id,
+      count,
+      isMain: id === mainAuthor
     }));
+
+    const links: Link[] = Array.from(linksMap.entries()).map(([key, value]) => {
+      const [source, target] = key.split('---');
+      return { source, target, value };
+    });
 
     return { nodes, links };
   }, []);
@@ -83,7 +93,7 @@ export default function CollaborationNetwork() {
         .force('link', d3.forceLink<Node, Link>(graphData.links).id(d => d.id).distance(150))
         .force('charge', d3.forceManyBody().strength(-300))
         .force('center', d3.forceCenter(width / 2, height / 2))
-        .force('collision', d3.forceCollide().radius(d => (d as Node).isMain ? 40 : 25));
+        .force('collision', d3.forceCollide().radius(d => (d as Node).isMain ? 50 : 35));
 
       const link = g.append('g')
         .attr('stroke', '#ccc')
@@ -103,7 +113,7 @@ export default function CollaborationNetwork() {
           .on('end', dragended) as any);
 
       nodeGroup.append('circle')
-        .attr('r', d => (d as Node).isMain ? 15 : 8 + ((d as Node).count * 2))
+        .attr('r', d => (d as Node).isMain ? 25 : Math.min(18, 8 + ((d as Node).count * 1.5)))
         .attr('fill', d => (d as Node).isMain ? '#0563bb' : '#45e1d1')
         .attr('stroke', '#fff')
         .attr('stroke-width', 2)
